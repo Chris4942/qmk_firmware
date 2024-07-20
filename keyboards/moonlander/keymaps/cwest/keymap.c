@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,            KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_ESC,                                                         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_LEFT_CTRL,       KC_Z,                   KC_X,               KC_C,               KC_V,               KC_TRANSPARENT,                                                                                 KC_TRANSPARENT, KC_M,               KC_COMMA,               KC_DOT,                 KC_SLASH,           KC_TRANSPARENT,
         KC_9,               KC_4,                   KC_3,               KC_2,               KC_1,                               KC_TRANSPARENT,                                                 KC_TRANSPARENT,                 KC_TRANSPARENT,     KC_TRANSPARENT,         KC_PGDN,                KC_TRANSPARENT,     KC_TRANSPARENT,
-                                                                                                                KC_SPACE,       KC_LEFT_CTRL,       KC_LEFT_ALT,                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+                                                                                                                KC_SPACE,       KC_LEFT_ALT,        KC_LEFT_CTRL,               KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 };
 const uint16_t PROGMEM combo0[] = { KC_K, KC_L, COMBO_END};
