@@ -6,7 +6,7 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 132
 
-#define COMBO_TERM 17
+#define COMBO_TERM 18
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #define FIRMWARE_VERSION u8"xmB3L/arowv"
