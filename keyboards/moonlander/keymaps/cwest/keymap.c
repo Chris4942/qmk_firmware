@@ -85,22 +85,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                 KC_SPACE,       KC_LEFT_ALT,        KC_LEFT_CTRL,               KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 };
-const uint16_t PROGMEM combo0[] = { KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM combo1[] = { KC_J, KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM combo2[] = { KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM combo3[] = { KC_J, KC_L, COMBO_END};
-const uint16_t PROGMEM combo4[] = { KC_S, KC_F, COMBO_END};
-const uint16_t PROGMEM combo5[] = { KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM combo6[] = { KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM r_bspc[] = { KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM r_delete[] = { KC_J, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM r_enter[] = { KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM r_esc[] = { KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM l_esc[] = { KC_S, KC_F, COMBO_END};
+const uint16_t PROGMEM l_enter[] = { KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM l_bspc[] = { KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM l_delete[] = { KC_S, KC_D, KC_F, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, KC_BSPC),
-    COMBO(combo1, KC_DELETE),
-    COMBO(combo2, KC_ENTER),
-    COMBO(combo3, KC_ESCAPE),
-    COMBO(combo4, KC_ESCAPE),
-    COMBO(combo5, KC_ENTER),
-    COMBO(combo6, KC_BSPC),
+    COMBO(r_bspc, KC_BSPC),
+    COMBO(r_delete, KC_DELETE),
+    COMBO(r_enter, KC_ENTER),
+    COMBO(r_esc, KC_ESCAPE),
+    COMBO(l_esc, KC_ESCAPE),
+    COMBO(l_enter, KC_ENTER),
+    COMBO(l_bspc, KC_BSPC),
+    COMBO(l_delete, KC_DELETE),
 };
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
