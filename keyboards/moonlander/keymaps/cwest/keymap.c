@@ -14,8 +14,9 @@ enum layers {
 };
 
 enum custom_keycodes {
-  RGB_SLD = ML_SAFE_RANGE,
-  ALT_TAB_MACRO,
+    RGB_SLD = ML_SAFE_RANGE,
+    ALT_TAB_MACRO,
+    DOUBLE_ESC_MACRO,
 };
 
 
@@ -47,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RIGHT_MOD] = LAYOUT_moonlander(
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     QK_BOOT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_PLUS,        KC_4,               KC_5,                   KC_6,                   KC_MINUS,           KC_TRANSPARENT,
-        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_GRAVE,           KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_EQUAL,       KC_1,               KC_2,                   KC_3,                   KC_DOT,             KC_TRANSPARENT,
+        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     DOUBLE_ESC_MACRO,   KC_GRAVE,           KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_EQUAL,       KC_1,               KC_2,                   KC_3,                   KC_DOT,             KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                                                                                 KC_0,           KC_7,               KC_8,                   KC_9,                   KC_TRANSPARENT,     KC_MEDIA_PREV_TRACK,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                     KC_TRANSPARENT,                                                 MO(_BOTH_MOD),                  KC_TRANSPARENT,     KC_MEDIA_NEXT_TRACK,    KC_AUDIO_VOL_DOWN,      KC_AUDIO_VOL_UP,    KC_MEDIA_PLAY_PAUSE,
                                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
@@ -129,11 +130,17 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ALT_TAB_MACRO:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_TAB) ));
-    }
-    break;
-
+        if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_TAB) ));
+        }
+        break;
+    case DOUBLE_ESC_MACRO:
+        if (record->event.pressed) {
+            tap_code(KC_ESC);
+        } else {
+            tap_code(KC_ESC);
+        }
+        break;
     case RGB_SLD:
         if (rawhid_state.rgb_control) {
             return false;
