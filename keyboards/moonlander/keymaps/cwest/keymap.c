@@ -15,7 +15,7 @@ enum layers {
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
-  ST_MACRO_0,
+  ALT_TAB_MACRO,
 };
 
 
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         MT(MOD_LGUI, KC_X), KC_TRANSPARENT,     MT(MOD_LCTL, KC_V), KC_TRANSPARENT,                                                                                 KC_TRANSPARENT, MT(MOD_RCTL, KC_M), KC_TRANSPARENT,         MT(MOD_RGUI, KC_DOT),   KC_TRANSPARENT,     KC_TRANSPARENT,
-        KC_TRANSPARENT,     KC_TRANSPARENT,         ST_MACRO_0,         KC_TRANSPARENT,     KC_TRANSPARENT,                     KC_TRANSPARENT,                                                 KC_RIGHT_GUI,                   KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
+        KC_TRANSPARENT,     KC_TRANSPARENT,         ALT_TAB_MACRO,      KC_TRANSPARENT,     KC_TRANSPARENT,                     KC_TRANSPARENT,                                                 KC_RIGHT_GUI,                   KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
                                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT,     KC_LEFT_CTRL,               KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
     [_LEFT_MOD] = LAYOUT_moonlander(
@@ -128,7 +128,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case ST_MACRO_0:
+    case ALT_TAB_MACRO:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_TAB) ));
     }
