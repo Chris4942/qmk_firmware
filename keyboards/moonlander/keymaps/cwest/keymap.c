@@ -3,8 +3,8 @@
 #define MOON_LED_LEVEL LED_LEVEL
 
 enum layers {
-    _MACOS,         // 0
-    _LINUX,         // 1
+    _LINUX,         // 0
+    _MACOS,         // 1
     _LEFT_MOD,      // 2
     _RIGHT_MOD,     // 3
     _SWAP_HAND,     // 4
@@ -22,19 +22,19 @@ enum custom_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MACOS] = LAYOUT_moonlander(
+    [_LINUX] = LAYOUT_moonlander(
         KC_0,               KC_1,                   KC_2,               KC_3,               KC_4,               KC_5,           KC_6,                                                           KC_TRANSPARENT, KC_6,           KC_7,               KC_8,                   KC_9,                   KC_0,                   KC_BSPC,
         KC_TRANSPARENT,     KC_Q,                   KC_W,               KC_E,               KC_R,               KC_T,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_Y,           KC_U,               KC_I,                   KC_O,                   KC_P,                   KC_BSLS,
         KC_SPACE,           KC_A,                   KC_S,               KC_D,               KC_F,               KC_G,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_H,           KC_J,               KC_K,                   KC_L,                   KC_SCLN,                KC_ENTER,
-        CW_TOGG,            MT(MOD_LSFT, KC_Z),     MT(MOD_LCTL, KC_X), MT(MOD_LALT, KC_C), MT(MOD_LGUI, KC_V), KC_B,                                                                                           KC_N,           MT(MOD_RGUI, KC_M), MT(MOD_RALT, KC_COMMA), MT(MOD_RCTL, KC_DOT),   MT(MOD_RSFT, KC_SLASH), KC_RIGHT_SHIFT,
+        CW_TOGG,            MT(MOD_LSFT, KC_Z),     MT(MOD_LGUI, KC_X), MT(MOD_LALT, KC_C), MT(MOD_LCTL, KC_V), KC_B,                                                                                           KC_N,           MT(MOD_RCTL, KC_M), MT(MOD_RALT, KC_COMMA), MT(MOD_RGUI, KC_DOT),   MT(MOD_RSFT, KC_SLASH), KC_RIGHT_SHIFT,
         KC_MS_BTN1,         KC_TAB,                 KC_TRANSPARENT,     KC_LEFT_GUI,        MO(_SWAP_HAND),                     MO(_BOTH_LEFT),                                                 KC_NO,                          MO(3),              KC_LEFT,                KC_DOWN,                KC_UP,                  KC_RIGHT,
                                                                                                                 MO(_LEFT_MOD),  KC_SPACE,           KC_LEFT_GUI,        KC_LEFT_ALT,            KC_SPACE,       MO(_RIGHT_MOD)
     ),
-    [_LINUX] = LAYOUT_moonlander(
+    [_MACOS] = LAYOUT_moonlander(
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
-        KC_TRANSPARENT,     KC_TRANSPARENT,         MT(MOD_LGUI, KC_X), KC_TRANSPARENT,     MT(MOD_LCTL, KC_V), KC_TRANSPARENT,                                                                                 KC_TRANSPARENT, MT(MOD_RCTL, KC_M), KC_TRANSPARENT,         MT(MOD_RGUI, KC_DOT),   KC_TRANSPARENT,     KC_TRANSPARENT,
+        KC_TRANSPARENT,     KC_TRANSPARENT,         MT(MOD_LCTL, KC_X), KC_TRANSPARENT,     MT(MOD_LGUI, KC_V), KC_TRANSPARENT,                                                                                 KC_TRANSPARENT, MT(MOD_RGUI, KC_M), KC_TRANSPARENT,         MT(MOD_RCTL, KC_DOT),   KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         ALT_TAB_MACRO,      KC_TRANSPARENT,     KC_TRANSPARENT,                     KC_TRANSPARENT,                                                 KC_RIGHT_GUI,                   KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
                                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT,     KC_LEFT_CTRL,               KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
     [_BOTH_MOD] = LAYOUT_moonlander(
-        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 TG(_GAMING),    TG(_LINUX),     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
+        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 TG(_GAMING),    TG(_MACOS),     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_LEFT,         KC_MS_DOWN,             KC_MS_UP,               KC_MS_RIGHT,        KC_PSCR,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_MS_BTN2,         KC_MS_BTN1,         KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_LEFT,            KC_DOWN,                KC_UP,                  KC_RIGHT,           KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                                                                                 KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_RIGHT_SHIFT,     KC_TRANSPARENT,
