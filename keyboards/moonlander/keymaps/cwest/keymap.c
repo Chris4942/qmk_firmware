@@ -18,6 +18,7 @@ enum custom_keycodes {
     RGB_SLD = ML_SAFE_RANGE,
     ALT_TAB_MACRO,
     EXIT_VIM_TERMINAL,
+    TOGGLE_COMBOS,
 };
 
 
@@ -63,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
     [_BOTH_MOD] = LAYOUT_moonlander(
-        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 TG(_GAMING),    TG(_MACOS),     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
+        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, TOGGLE_COMBOS,                                                  TG(_GAMING),    TG(_MACOS),     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_LEFT,         KC_MS_DOWN,             KC_MS_UP,               KC_MS_RIGHT,        KC_PSCR,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_MS_BTN2,         KC_MS_BTN1,         KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_LEFT,            KC_DOWN,                KC_UP,                  KC_RIGHT,           KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                                                                                 KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_RIGHT_SHIFT,     KC_TRANSPARENT,
@@ -127,12 +128,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+bool combos_enabled = true;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ALT_TAB_MACRO:
         if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_TAB) ));
+            SEND_STRING(SS_LALT(SS_TAP(X_TAB) ));
         }
         break;
     case EXIT_VIM_TERMINAL:
@@ -152,6 +154,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             rgblight_mode(1);
         }
         return false;
+    case TOGGLE_COMBOS:
+        if (!record->event.pressed) {  // On not pressed means on release
+            combos_enabled = !combos_enabled;
+        }
+        return false;
   }
   return true;
 }
@@ -162,5 +169,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
-    return !layer_state_is(_GAMING);
+    return combos_enabled && !layer_state_is(_GAMING);
 }
