@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT,     KC_Q,                   KC_W,               KC_E,               KC_R,               KC_T,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_Y,           KC_U,               KC_I,                   KC_O,                   KC_P,                   KC_BSLS,
         KC_SPACE,           KC_A,                   KC_S,               KC_D,               KC_F,               KC_G,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_H,           KC_J,               KC_K,                   KC_L,                   KC_SCLN,                KC_ENTER,
         CW_TOGG,            MT(MOD_LSFT, KC_Z),     MT(MOD_LGUI, KC_X), MT(MOD_LALT, KC_C), MT(MOD_LCTL, KC_V), KC_B,                                                                                           KC_N,           MT(MOD_RCTL, KC_M), MT(MOD_RALT, KC_COMMA), MT(MOD_RGUI, KC_DOT),   MT(MOD_RSFT, KC_SLASH), KC_RIGHT_SHIFT,
-        KC_MS_BTN1,         KC_TAB,                 KC_TRANSPARENT,     KC_LEFT_GUI,        MO(_SWAP_HAND),                     MO(_BOTH_LEFT),                                                 KC_NO,                          MO(3),              KC_LEFT,                KC_DOWN,                KC_UP,                  KC_RIGHT,
+        KC_MS_BTN1,         KC_TAB,                 KC_TRANSPARENT,     KC_LEFT_GUI,        MO(_SWAP_HAND),                     MO(_BOTH_LEFT),                                                 KC_NO,                          MO(_SWAP_HAND),     KC_LEFT,                KC_DOWN,                KC_UP,                  KC_RIGHT,
                                                                                                                 MO(_LEFT_MOD),  KC_SPACE,           KC_LEFT_CTRL,       KC_LEFT_ALT,            KC_SPACE,       MO(_RIGHT_MOD)
     ),
     [_MACOS] = LAYOUT_moonlander(
@@ -56,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SWAP_HAND] = LAYOUT_moonlander(
         KC_TRANSPARENT,     KC_0,                   KC_9,               KC_8,               KC_7,               KC_6,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
-        KC_TRANSPARENT,     KC_P,                   KC_O,               KC_I,               KC_U,               KC_Y,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_KP_4,            KC_KP_5,                KC_KP_6,                KC_TRANSPARENT,     KC_TRANSPARENT,
-        KC_MINUS,           KC_SCLN,                KC_L,               KC_K,               KC_J,               KC_H,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_KP_1,            KC_KP_2,                KC_KP_3,                KC_TRANSPARENT,     KC_TRANSPARENT,
-        KC_TRANSPARENT,     MT(MOD_RSFT, KC_SLASH), KC_DOT,             KC_COMMA,           KC_M,               KC_N,                                                                                           KC_KP_0,        KC_KP_7,            KC_KP_8,                KC_KP_9,                KC_TRANSPARENT,     KC_TRANSPARENT,
+        KC_TRANSPARENT,     KC_P,                   KC_O,               KC_I,               KC_U,               KC_Y,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_T,           KC_R,               KC_E,                   KC_W,                   KC_Q,               KC_TRANSPARENT,
+        KC_MINUS,           KC_SCLN,                KC_L,               KC_K,               KC_J,               KC_H,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_G,           KC_F,               KC_D,                   KC_S,                   KC_A,               KC_SPACE,
+        KC_TRANSPARENT,     MT(MOD_RSFT, KC_SLASH), KC_DOT,             KC_COMMA,           KC_M,               KC_N,                                                                                           KC_B,           KC_V,               KC_C,                   KC_X,                   KC_Z,               KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                     KC_TRANSPARENT,                                                 KC_TRANSPARENT,                 KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
                                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
@@ -119,9 +119,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case MT(MOD_LGUI, KC_X):
             return TAPPING_TERM -31;
         case MT(MOD_LCTL, KC_V):
-            return TAPPING_TERM -37;
+            return TAPPING_TERM - 35;
         case MT(MOD_RCTL, KC_M):
-            return TAPPING_TERM -39;
+            return TAPPING_TERM - 35;
         default:
             return TAPPING_TERM;
     }
