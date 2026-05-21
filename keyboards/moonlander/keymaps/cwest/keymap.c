@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_BOTH_MOD] = LAYOUT_moonlander(
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, TOGGLE_COMBOS,                                                  TG(_GAMING),    TG(_MACOS),     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
-        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_LEFT,         KC_MS_DOWN,             KC_MS_UP,               KC_MS_RIGHT,        KC_PSCR,
+        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, RGB_TOG,                                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_LEFT,         KC_MS_DOWN,             KC_MS_UP,               KC_MS_RIGHT,        KC_PSCR,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_MS_BTN2,         KC_MS_BTN1,         KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_LEFT,            KC_DOWN,                KC_UP,                  KC_RIGHT,           KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                                                                                 KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_RIGHT_SHIFT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                         KC_TRANSPARENT,                                             KC_TRANSPARENT,                 KC_TRANSPARENT,     KC_TRANSPARENT,         KC_PGDN,                KC_PAGE_UP,         KC_TRANSPARENT,
@@ -130,6 +130,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool combos_enabled = true;
 
+// #define MY_SOUND E__NOTE(_GS6), E__NOTE(_A6), S__NOTE(_REST), Q__NOTE(_E7)
+// float toggle_song[][2] = SONG(MY_SOUND);
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ALT_TAB_MACRO:
@@ -157,6 +160,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TOGGLE_COMBOS:
         if (!record->event.pressed) {  // On not pressed means on release
             combos_enabled = !combos_enabled;
+            // I used to have this play a song, but I don't think that's the right way to signal this.
+            // PLAY_SONG(toggle_song);
         }
         return false;
   }
