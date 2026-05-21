@@ -21,6 +21,9 @@ enum custom_keycodes {
     TOGGLE_COMBOS,
 };
 
+/// If disabled, combos will not fire on any layer
+bool cwest_combos_enabled = true;
+bool cwest_rgb_enabled = true;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LINUX] = LAYOUT_moonlander(
@@ -128,8 +131,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-bool combos_enabled = true;
-
 // #define MY_SOUND E__NOTE(_GS6), E__NOTE(_A6), S__NOTE(_REST), Q__NOTE(_E7)
 // float toggle_song[][2] = SONG(MY_SOUND);
 
@@ -149,6 +150,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_LEFT_CTRL);
         }
         break;
+    case RGB_TOG:
+        if (record->event.pressed) {
+                cwest_rgb_enabled = !cwest_rgb_enabled;
+        }
+        break;
     case RGB_SLD:
         if (rawhid_state.rgb_control) {
             return false;
@@ -160,20 +166,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     case TOGGLE_COMBOS:
         if (!record->event.pressed) {  // On not pressed means on release
-            combos_enabled = !combos_enabled;
-            // I used to have this play a song, but I don't think that's the right way to signal this.
-            // PLAY_SONG(toggle_song);
+            cwest_combos_enabled = !cwest_combos_enabled;
         }
         return false;
   }
   return true;
 }
 
+bool rgb_matrix_indicators_user(void) {
+    if (cwest_combos_enabled) {
+        if (!cwest_rgb_enabled) {
+            rgb_matrix_set_color(29, 0, 0, 0);
+        } else {
+            rgb_matrix_set_color(29, 0, 255, 0);  // 29 is the key that switches combos on and off
+        }
+    } else {
+        rgb_matrix_set_color(29, 255, 0, 0);  // Shines even if leds are disabled so that it's obvious
+    }
+    return false;
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LEFT_MOD, _RIGHT_MOD, _BOTH_MOD);
 }
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
-    return combos_enabled && !layer_state_is(_GAMING);
+    return cwest_combos_enabled && !layer_state_is(_GAMING);
 }
+
