@@ -175,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool rgb_matrix_indicators_user(void) {
     if (cwest_combos_enabled) {
-        if (!cwest_rgb_enabled) {
+        if (!cwest_rgb_enabled) {  // This is a hack. This is stored somewhere already when RGB_TOG is sent and it's possible for this to get out of sync with it
             rgb_matrix_set_color(29, 0, 0, 0);
         } else {
             rgb_matrix_set_color(29, 0, 255, 0);  // 29 is the key that switches combos on and off
