@@ -170,21 +170,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /// A list of light indexes for lights that are modified by some layer so that we know which lights need to be reset on the main layers
 const short layer_lights[4] = {7, 11, 12, 17};
 
+# define HOME_ROW_PURPLE 159, 110, 195
+# define ACTIVE_GREEN 50, 238, 50
+# define DISABLED_RED 199, 24, 22
+# define OFF 0, 0, 0
+
 bool rgb_matrix_indicators_user(void) {
     bool leds_enabled = rgb_matrix_get_flags() != LED_FLAG_NONE;
 
     switch (biton32(layer_state)) {
         case _GAMING:
-            rgb_matrix_set_color(7, 0, 255, 0);
-            rgb_matrix_set_color(11, 0, 255, 0);
-            rgb_matrix_set_color(12, 0, 255, 0);
-            rgb_matrix_set_color(17, 0, 255, 0);
+            rgb_matrix_set_color(7, HOME_ROW_PURPLE);
+            rgb_matrix_set_color(11, HOME_ROW_PURPLE);
+            rgb_matrix_set_color(12, HOME_ROW_PURPLE);
+            rgb_matrix_set_color(17, HOME_ROW_PURPLE);
             break;
         case _LINUX:
         case _MACOS:
             if (leds_enabled) {
-                rgb_matrix_set_color(22, 159, 110, 195);
-                rgb_matrix_set_color(58, 159, 110, 195);
+                rgb_matrix_set_color(22, HOME_ROW_PURPLE);
+                rgb_matrix_set_color(58, HOME_ROW_PURPLE);
             }
             break;
 
@@ -192,12 +197,12 @@ bool rgb_matrix_indicators_user(void) {
 
     if (cwest_combos_enabled) {
         if (!leds_enabled) {  // This is a hack. This is stored somewhere already when RGB_TOG is sent and it's possible for this to get out of sync with it
-            rgb_matrix_set_color(29, 0, 0, 0);
+            rgb_matrix_set_color(29, OFF);
         } else {
-            rgb_matrix_set_color(29, 0, 255, 0);  // 29 is the key that switches combos on and off
+            rgb_matrix_set_color(29, ACTIVE_GREEN);  // 29 is the key that switches combos on and off
         }
     } else {
-        rgb_matrix_set_color(29, 255, 0, 0);  // Shines even if leds are disabled so that it's obvious
+        rgb_matrix_set_color(29, DISABLED_RED);  // Shines even if leds are disabled so that it's obvious
     }
 
     return false;
