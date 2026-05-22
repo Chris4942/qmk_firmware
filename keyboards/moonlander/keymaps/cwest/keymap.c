@@ -155,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         if (record->event.pressed) {
             rgblight_mode(1);
-            rgblight_sethsv(43,245,245);
+            rgblight_sethsv(3,245,100);
         }
         return false;
     case TOGGLE_COMBOS:
@@ -183,15 +183,8 @@ bool rgb_matrix_indicators_user(void) {
         case _LINUX:
         case _MACOS:
             if (leds_enabled) {
-                for (short i=0; i < 4; ++i){
-                    rgb_matrix_set_color(layer_lights[i], 245, 178, 10);
-                }
                 rgb_matrix_set_color(22, 159, 110, 195);
                 rgb_matrix_set_color(58, 159, 110, 195);
-            } else {
-                for (short i=0; i < 4; ++i){
-                    rgb_matrix_set_color(layer_lights[i], 0, 0, 0);
-                }
             }
             break;
 
