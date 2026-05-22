@@ -23,7 +23,6 @@ enum custom_keycodes {
 
 /// If disabled, combos will not fire on any layer
 bool cwest_combos_enabled = true;
-bool cwest_rgb_enabled = true;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LINUX] = LAYOUT_moonlander(
@@ -150,11 +149,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_LEFT_CTRL);
         }
         break;
-    case RGB_TOG:
-        if (record->event.pressed) {
-                cwest_rgb_enabled = !cwest_rgb_enabled;
-        }
-        break;
     case RGB_SLD:
         if (rawhid_state.rgb_control) {
             return false;
@@ -174,14 +168,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool rgb_matrix_indicators_user(void) {
+    bool leds_enabled = rgb_matrix_get_flags() != LED_FLAG_NONE;
     if (cwest_combos_enabled) {
-        if (!cwest_rgb_enabled) {  // This is a hack. This is stored somewhere already when RGB_TOG is sent and it's possible for this to get out of sync with it
+        if (!leds_enabled) {  // This is a hack. This is stored somewhere already when RGB_TOG is sent and it's possible for this to get out of sync with it
             rgb_matrix_set_color(29, 0, 0, 0);
         } else {
             rgb_matrix_set_color(29, 0, 255, 0);  // 29 is the key that switches combos on and off
         }
     } else {
         rgb_matrix_set_color(29, 255, 0, 0);  // Shines even if leds are disabled so that it's obvious
+    }
+
+    switch (biton32(layer_state)) {
+        case _GAMING:
+            rgb_matrix_set_color(7, 0, 255, 0);
+            rgb_matrix_set_color(11, 0, 255, 0);
+            rgb_matrix_set_color(12, 0, 255, 0);
+            rgb_matrix_set_color(17, 0, 255, 0);
+            break;
     }
     return false;
 }
