@@ -167,8 +167,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+/// A list of light indexes for lights that are modified by some layer so that we know which lights need to be reset on the main layers
+const short layer_lights[4] = {7, 11, 12, 17};
+
 bool rgb_matrix_indicators_user(void) {
     bool leds_enabled = rgb_matrix_get_flags() != LED_FLAG_NONE;
+
+    switch (biton32(layer_state)) {
+        case _GAMING:
+            rgb_matrix_set_color(7, 0, 255, 0);
+            rgb_matrix_set_color(11, 0, 255, 0);
+            rgb_matrix_set_color(12, 0, 255, 0);
+            rgb_matrix_set_color(17, 0, 255, 0);
+            break;
+        case _LINUX:
+        case _MACOS:
+            if (leds_enabled) {
+                for (short i=0; i < 4; ++i){
+                    rgb_matrix_set_color(layer_lights[i], 245, 178, 10);
+                }
+                rgb_matrix_set_color(22, 159, 110, 195);
+                rgb_matrix_set_color(58, 159, 110, 195);
+            } else {
+                for (short i=0; i < 4; ++i){
+                    rgb_matrix_set_color(layer_lights[i], 0, 0, 0);
+                }
+            }
+            break;
+
+    }
+
     if (cwest_combos_enabled) {
         if (!leds_enabled) {  // This is a hack. This is stored somewhere already when RGB_TOG is sent and it's possible for this to get out of sync with it
             rgb_matrix_set_color(29, 0, 0, 0);
@@ -179,14 +207,6 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(29, 255, 0, 0);  // Shines even if leds are disabled so that it's obvious
     }
 
-    switch (biton32(layer_state)) {
-        case _GAMING:
-            rgb_matrix_set_color(7, 0, 255, 0);
-            rgb_matrix_set_color(11, 0, 255, 0);
-            rgb_matrix_set_color(12, 0, 255, 0);
-            rgb_matrix_set_color(17, 0, 255, 0);
-            break;
-    }
     return false;
 }
 
