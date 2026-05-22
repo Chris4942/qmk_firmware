@@ -204,10 +204,10 @@ bool rgb_matrix_indicators_user(void) {
     }
 
     if (cwest_combos_enabled) {
-        if (!leds_enabled) {  // This is a hack. This is stored somewhere already when RGB_TOG is sent and it's possible for this to get out of sync with it
-            rgb_matrix_set_color(29, OFF);
-        } else {
+        if (leds_enabled) {
             rgb_matrix_set_color(29, ACTIVE_GREEN);  // 29 is the key that switches combos on and off
+        } else {
+            rgb_matrix_set_color(29, OFF);
         }
     } else {
         rgb_matrix_set_color(29, DISABLED_RED);  // Shines even if leds are disabled so that it's obvious
