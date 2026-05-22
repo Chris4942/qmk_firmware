@@ -168,7 +168,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 /// A list of light indexes for lights that are modified by some layer so that we know which lights need to be reset on the main layers
-const short layer_lights[4] = {7, 11, 12, 17};
+# define NUM_LAYER_LIGHTS 6
+const short layer_lights[NUM_LAYER_LIGHTS] = {7, 11, 12, 17, 61, 65};
 
 # define HOME_ROW_PURPLE 159, 110, 195
 # define ACTIVE_GREEN 50, 238, 50
@@ -192,9 +193,11 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(11, HOME_ROW_PURPLE);
             rgb_matrix_set_color(12, HOME_ROW_PURPLE);
             rgb_matrix_set_color(17, HOME_ROW_PURPLE);
+            rgb_matrix_set_color(65, ACTIVE_GREEN);
             break;
-        case _LINUX:
         case _MACOS:
+            rgb_matrix_set_color(61, ACTIVE_GREEN);
+        case _LINUX:
             if (leds_enabled) {
                 rgb_matrix_set_color(22, HOME_ROW_PURPLE);
                 rgb_matrix_set_color(58, HOME_ROW_PURPLE);
