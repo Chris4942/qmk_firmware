@@ -178,6 +178,14 @@ const short layer_lights[4] = {7, 11, 12, 17};
 bool rgb_matrix_indicators_user(void) {
     bool leds_enabled = rgb_matrix_get_flags() != LED_FLAG_NONE;
 
+    if (!leds_enabled) {
+        // If leds are not enabled, then we have to manually disable layer lights.
+        // We just turn them all off and then if a layer wants to ignore the leds_enabled flag, then it can set it again below.
+        for (short i = 0; i < 4; ++i) {
+            rgb_matrix_set_color(layer_lights[i], OFF);
+        }
+    }
+
     switch (biton32(layer_state)) {
         case _GAMING:
             rgb_matrix_set_color(7, HOME_ROW_PURPLE);
