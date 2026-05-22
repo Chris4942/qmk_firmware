@@ -209,6 +209,8 @@ bool rgb_matrix_indicators_user(void) {
             homing_lights(leds_enabled);
             break;
         case _LINUX:
+        case _RIGHT_MOD:
+        case _LEFT_MOD:
             homing_lights(leds_enabled);
             break;
     }
