@@ -57,14 +57,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                     KC_TRANSPARENT,                                                 MO(_BOTH_MOD),                  KC_TRANSPARENT,     KC_MEDIA_NEXT_TRACK,    KC_AUDIO_VOL_DOWN,      KC_AUDIO_VOL_UP,    KC_MEDIA_PLAY_PAUSE,
                                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
-    [_SWAP_HAND] = LAYOUT_moonlander(
-        KC_TRANSPARENT,     KC_0,                   KC_9,               KC_8,               KC_7,               KC_6,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
-        KC_TRANSPARENT,     KC_P,                   KC_O,               KC_I,               KC_U,               KC_Y,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_T,           KC_R,               KC_E,                   KC_W,                   KC_Q,               KC_TAB,
-        KC_MINUS,           KC_SCLN,                KC_L,               KC_K,               KC_J,               KC_H,           KC_QUOTE,                                                       KC_ESC,         KC_G,           KC_F,               KC_D,                   KC_S,                   KC_A,               KC_SPACE,
-        KC_TRANSPARENT,     MT(MOD_RSFT, KC_SLASH), KC_DOT,             KC_COMMA,           KC_M,               KC_N,                                                                                           KC_B,           KC_V,               KC_C,                   KC_X,                   KC_Z,               CW_TOGG,
-        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                     KC_TRANSPARENT,                                                 KC_TRANSPARENT,                 KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
-                                                                                                                KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
-    ),
     [_BOTH_MOD] = LAYOUT_moonlander(
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, TOGGLE_COMBOS,                                                  TG(_GAMING),    TG(_MACOS),     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, RGB_TOG,                                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_LEFT,         KC_MS_DOWN,             KC_MS_UP,               KC_MS_RIGHT,        KC_PSCR,
@@ -86,8 +78,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_KP_MINUS,                                                    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_LSFT,            KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT, KC_ESC,                                                         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
         KC_LEFT_CTRL,       KC_Z,                   KC_X,               KC_C,               KC_V,               KC_TRANSPARENT,                                                                                 KC_TRANSPARENT, KC_M,               KC_COMMA,               KC_DOT,                 KC_SLASH,           KC_TRANSPARENT,
-        KC_9,               KC_4,                   KC_3,               KC_2,               KC_1,                               KC_ENTER,                                                       KC_TRANSPARENT,                 KC_TRANSPARENT,     KC_TRANSPARENT,         KC_PGDN,                KC_TRANSPARENT,     KC_TRANSPARENT,
+        KC_9,               KC_4,                   KC_3,               KC_2,               MO(_SWAP_HAND),                     KC_ENTER,                                                       KC_TRANSPARENT,                 KC_TRANSPARENT,     KC_TRANSPARENT,         KC_PGDN,                KC_TRANSPARENT,     KC_TRANSPARENT,
                                                                                                                 KC_SPACE,       KC_LEFT_ALT,        KC_LEFT_CTRL,               KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [_SWAP_HAND] = LAYOUT_moonlander(
+        KC_TRANSPARENT,     KC_0,                   KC_9,               KC_8,               KC_7,               KC_6,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
+        KC_TRANSPARENT,     KC_P,                   KC_O,               KC_I,               KC_U,               KC_Y,           KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_T,           KC_R,               KC_E,                   KC_W,                   KC_Q,               KC_TAB,
+        KC_MINUS,           KC_SCLN,                KC_L,               KC_K,               KC_J,               KC_H,           KC_QUOTE,                                                       KC_ESC,         KC_G,           KC_F,               KC_D,                   KC_S,                   KC_A,               KC_SPACE,
+        KC_TRANSPARENT,     MT(MOD_RSFT, KC_SLASH), KC_DOT,             KC_COMMA,           KC_M,               KC_N,                                                                                           KC_B,           KC_V,               KC_C,                   KC_X,                   KC_Z,               CW_TOGG,
+        KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,                     KC_TRANSPARENT,                                                 KC_TRANSPARENT,                 KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT,         KC_TRANSPARENT,     KC_TRANSPARENT,
+                                                                                                                KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     )
 };
 const uint16_t PROGMEM r_bspc[] = { KC_K, KC_L, COMBO_END};
@@ -168,8 +168,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 /// A list of light indexes for lights that are modified by some layer so that we know which lights need to be reset on the main layers
-# define NUM_LAYER_LIGHTS 9
-const short layer_lights[NUM_LAYER_LIGHTS] = {7, 11, 12, 17, 22, 58, 60, 61, 65};
+# define NUM_LAYER_LIGHTS 10
+const short layer_lights[NUM_LAYER_LIGHTS] = {7, 11, 12, 17, 22, 24, 58, 60, 61, 65};
 
 # define HOME_ROW_PURPLE 159, 110, 195
 # define ACTIVE_GREEN 50, 238, 50
@@ -189,18 +189,21 @@ bool rgb_matrix_indicators_user(void) {
     if (!leds_enabled) {
         // If leds are not enabled, then we have to manually disable layer lights.
         // We just turn them all off and then if a layer wants to ignore the leds_enabled flag, then it can set it again below.
-        for (short i = 0; i < 4; ++i) {
+        for (short i = 0; i < NUM_LAYER_LIGHTS; ++i) {
             rgb_matrix_set_color(layer_lights[i], OFF);
         }
     }
 
     switch (biton32(layer_state)) {
         case _GAMING:
+            rgb_matrix_set_color(65, ACTIVE_GREEN);
+            if (layer_state_is(_SWAP_HAND)) {
+                break;  // If swap hands is pressed, don't keep wasd lights active
+            }
             rgb_matrix_set_color(7, HOME_ROW_PURPLE);
             rgb_matrix_set_color(11, HOME_ROW_PURPLE);
             rgb_matrix_set_color(12, HOME_ROW_PURPLE);
             rgb_matrix_set_color(17, HOME_ROW_PURPLE);
-            rgb_matrix_set_color(65, ACTIVE_GREEN);
             break;
         case _MACOS:
             rgb_matrix_set_color(61, ACTIVE_GREEN);
@@ -209,12 +212,12 @@ bool rgb_matrix_indicators_user(void) {
         case _LINUX:
             homing_lights(leds_enabled);
             break;
-        case _SWAP_HAND:
-            homing_lights(leds_enabled);
-            rgb_matrix_set_color(24, ACTIVE_GREEN);
-            rgb_matrix_set_color(60, ACTIVE_GREEN);
-            break;
+    }
 
+    if (layer_state_is(_SWAP_HAND)) {
+        homing_lights(leds_enabled);
+        rgb_matrix_set_color(24, ACTIVE_GREEN);
+        rgb_matrix_set_color(60, ACTIVE_GREEN);
     }
 
     if (cwest_combos_enabled) {
