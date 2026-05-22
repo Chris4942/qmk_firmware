@@ -155,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         if (record->event.pressed) {
             rgblight_mode(1);
-            rgblight_sethsv(3,245,100);
+            rgblight_sethsv(63,245,75);
         }
         return false;
     case TOGGLE_COMBOS:
