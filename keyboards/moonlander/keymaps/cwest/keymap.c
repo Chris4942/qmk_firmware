@@ -97,6 +97,7 @@ const uint16_t PROGMEM l_esc[] = { KC_S, KC_F, COMBO_END};
 const uint16_t PROGMEM l_enter[] = { KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM l_bspc[] = { KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM l_delete[] = { KC_S, KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM mute[] = { KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, COMBO_END };
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(r_bspc, KC_BSPC),
@@ -107,19 +108,20 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(l_enter, KC_ENTER),
     COMBO(l_bspc, KC_BSPC),
     COMBO(l_delete, KC_DELETE),
+    COMBO(mute, KC_AUDIO_MUTE),
 };
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LSFT, KC_Z):
-            return TAPPING_TERM -39;
+            return TAPPING_TERM - 39;
         case MT(MOD_LGUI, KC_V):
-            return TAPPING_TERM -37;
+            return TAPPING_TERM - 37;
         case MT(MOD_RGUI, KC_M):
-            return TAPPING_TERM -38;
+            return TAPPING_TERM - 38;
         case MT(MOD_RSFT, KC_SLASH):
-            return TAPPING_TERM -41;
+            return TAPPING_TERM - 41;
         case MT(MOD_LGUI, KC_X):
-            return TAPPING_TERM -31;
+            return TAPPING_TERM - 31;
         case MT(MOD_LCTL, KC_V):
             return TAPPING_TERM - 35;
         case MT(MOD_RCTL, KC_M):
