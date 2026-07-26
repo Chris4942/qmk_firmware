@@ -169,19 +169,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 /// A list of light indexes for lights that are modified by some layer so that we know which lights need to be reset on the main layers
-# define NUM_LAYER_LIGHTS 10
-const short layer_lights[NUM_LAYER_LIGHTS] = {7, 11, 12, 17, 22, 24, 58, 60, 61, 65};
+# define NUM_LAYER_LIGHTS 18
+const short layer_lights[NUM_LAYER_LIGHTS] = {7, 11, 12, 17, 22, 24, 32, 33, 34, 35, 58, 60, 61, 65, 68, 69, 70, 71};
 
 # define HOME_ROW_PURPLE 159, 110, 195
 # define ACTIVE_GREEN 50, 238, 50
+# define WARNING_YELLOW 255, 188, 10
 # define DISABLED_RED 199, 24, 22
 # define OFF 0, 0, 0
 
-void homing_lights(const bool leds_enabled) {
-    if (leds_enabled) {
-        rgb_matrix_set_color(22, HOME_ROW_PURPLE);
-        rgb_matrix_set_color(58, HOME_ROW_PURPLE);
-    }
+void homing_lights(void) {
+    rgb_matrix_set_color(22, HOME_ROW_PURPLE);
+    rgb_matrix_set_color(58, HOME_ROW_PURPLE);
 }
 
 bool rgb_matrix_indicators_user(void) {
@@ -208,19 +207,47 @@ bool rgb_matrix_indicators_user(void) {
             break;
         case _MACOS:
             rgb_matrix_set_color(61, ACTIVE_GREEN);
-            homing_lights(leds_enabled);
+            if (leds_enabled) { homing_lights(); }
             break;
         case _LINUX:
+            if (leds_enabled) { homing_lights(); }
+            break;
         case _RIGHT_MOD:
+            rgb_matrix_set_color(68, ACTIVE_GREEN);
+            if (leds_enabled) {
+                homing_lights();
+                rgb_matrix_set_color(69, ACTIVE_GREEN);
+                rgb_matrix_set_color(70, ACTIVE_GREEN);
+                rgb_matrix_set_color(71, ACTIVE_GREEN);
+            }
+            break;
         case _LEFT_MOD:
-            homing_lights(leds_enabled);
+            rgb_matrix_set_color(32, ACTIVE_GREEN);
+            if (leds_enabled) {
+                homing_lights();
+                rgb_matrix_set_color(33, ACTIVE_GREEN);
+                rgb_matrix_set_color(34, ACTIVE_GREEN);
+                rgb_matrix_set_color(35, ACTIVE_GREEN);
+            }
+            break;
+        case _BOTH_MOD:
+            rgb_matrix_set_color(32, WARNING_YELLOW);
+            rgb_matrix_set_color(68, WARNING_YELLOW);
+            if (leds_enabled) {
+                rgb_matrix_set_color(33, WARNING_YELLOW);
+                rgb_matrix_set_color(34, WARNING_YELLOW);
+                rgb_matrix_set_color(35, WARNING_YELLOW);
+                rgb_matrix_set_color(69, WARNING_YELLOW);
+                rgb_matrix_set_color(70, WARNING_YELLOW);
+                rgb_matrix_set_color(71, WARNING_YELLOW);
+            }
             break;
     }
 
     if (layer_state_is(_SWAP_HAND)) {
-        homing_lights(leds_enabled);
         rgb_matrix_set_color(24, ACTIVE_GREEN);
         rgb_matrix_set_color(60, ACTIVE_GREEN);
+        if (leds_enabled) { homing_lights(); }
     }
 
     if (cwest_combos_enabled) {
